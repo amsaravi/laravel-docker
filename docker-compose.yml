@@ -1,13 +1,13 @@
 version: "3.7"
 services:
   laravel:
-    user: nginx
-    deploy:
+    user: nginx    
     build:      
       args:
         user: nginx
         uid: 994
       dockerfile: Dockerfile
+      context: .
     image: laravel
     container_name: laravel-app
     restart: unless-stopped
@@ -25,14 +25,15 @@ services:
       # uncomment these lines just for developement purpose
       # - DB_USERNAME=your_username
       # - DB_PASSWORD=your_pass
-
+    volumes:
+      - .:/var/www/html
     # networks:
     #   - proxy
-# secrets:
-#   mysql_pass:
-#     external: true
-#   mysql_user:
-#     external: true
+secrets:
+  mysql_pass:
+    external: true
+  mysql_user:
+    external: true
 # networks:
 #   proxy:
 #     external: true
