@@ -6,15 +6,16 @@ https://www.digitalocean.com/community/tutorials/how-to-containerize-a-laravel-a
 ## Install from command line
 clone this repository and build docker image.
 ```
+mkdir -p /var/www/html
 cd /var/www/html
 https://github.com/amsaravi/laravel-docker.git
 cd laravel-docker
-docker build . -t laravel-fpm --build-arg user=nginx uid=994
+docker build . -t laravelfpm --build-arg user=nginx --build-arg uid=994
 ```
-Then run docker as a server where /var/www/html/laravel-docker is where your laravel project resides.
+Then run docker as a php-fpm server where /var/www/html/laravel-docker is where your laravel project resides.
 
 ```
-docker run --name laravel-test -v /var/www/html/laravel-docker:/var/www/html -d -p 9000:9000
+docker run --name laravel-test -v /var/www/html/laravel-docker:/var/www/html -d -p 9000:9000 laravelfpm
 ```
 As this image is based on php-fpm it serves php-fcgi in port 9000. you should configure your web server to use your host and port address (nginx configuration will follow in the upcoming sections)
 
@@ -27,7 +28,7 @@ https://github.com/amsaravi/laravel-docker.git
 cd laravel-docker
 docker-compose up
 ```
-you can comment in secrets in docker-compose file
+You can comment in secrets in docker-compose file.
 
 ## Nginx config
 Nginx docker configuration is instructed in the base tuturial at https://www.digitalocean.com/community/tutorials/how-to-containerize-a-laravel-application-for-development-with-docker-compose-on-ubuntu-18-04. 
